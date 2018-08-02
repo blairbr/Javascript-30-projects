@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Click and Drag</title>
+  <link rel="stylesheet" href="ClickAndDragStyle.css">
+</head>
+<body>
+  <div class="items">
+    <div class="item item1">01</div>
+    <div class="item item2">02</div>
+    <div class="item item3">03</div>
+    <div class="item item4">04</div>
+    <div class="item item5">05</div>
+    <div class="item item6">06</div>
+    <div class="item item7">07</div>
+    <div class="item item8">08</div>
+    <div class="item item9">09</div>
+    <div class="item item10">10</div>
+    <div class="item item11">11</div>
+    <div class="item item12">12</div>
+    <div class="item item13">13</div>
+    <div class="item item14">14</div>
+    <div class="item item15">15</div>
+    <div class="item item16">16</div>
+    <div class="item item17">17</div>
+    <div class="item item18">18</div>
+    <div class="item item19">19</div>
+    <div class="item item20">20</div>
+    <div class="item item21">21</div>
+    <div class="item item22">22</div>
+    <div class="item item23">23</div>
+    <div class="item item24">24</div>
+    <div class="item item25">25</div>
+  </div>
+
+<script>
+  const slider = document.querySelector('.items'); //Gets the first element in the document with class'.items':
+  let isDownFlag = false; //the flag to determine if the mouse is being clicked & held down
+  let startX;
+  let scrollLeft;
+  //The let and const identifiers have block scope (behave the way you would expect in C#)
+  //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/block
+  slider.addEventListener('mousedown', (e) => {
+    isDownFlag = true;
+    slider.classList.add('active');
+    //record where the inital mousedown was
+    console.log(e.pageX); //will tell you exactly the X coordinates on the page
+    startX = e.pageX - slider.offsetLeft; //removes any margin
+    console.log(startX);
+    scrollLeft = slider.scrollLeft;
+  });
+  slider.addEventListener('mouseleave', () => {  //when the mouse pointer leaves the selected element
+    isDownFlag = false;
+    slider.classList.remove('active');
+  });
+  slider.addEventListener('mouseup', () => {
+    isDownFlag = false;
+    slider.classList.remove('active');
+  });
+  slider.addEventListener('mousemove', (e) => {
+    if(!isDownFlag) return; //stop the function from running
+    console.log(isDownFlag);
+    e.preventDefault(); //stops browser from thinking youre selecting text
+    const x = e.pageX - slider.offsetLeft; //recacluating it every time the mouse is moved
+    const walk = (x - startX) * 3; // how far have we deviated from the initial space;
+    //for each pixel moved, you scroll the slider three pixels
+    slider.scrollLeft = scrollLeft - walk;
+  });
+</script>
+
+  </body>
+</html>
